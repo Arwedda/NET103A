@@ -1,0 +1,116 @@
+     Assembly listing for: Net103 Assignment.mas
+                Assembled: Wed Apr 27 13:05:25 BST 2016
+
+         |                          /NET103 coursework completed by
+         |                          /Joseph Kellaway 10503639
+         |                          /Zakaria Robinson 10500227
+         |                          
+000 5000 |  loopa  INPUT            /Take user input for A
+001 202E |         STORE A          /Store user input for A
+002 4036 |         SUBT Max         /AC=A-101
+003 8000 |         SKIPCOND 000     /If AC<0 then A<100 skip jump
+004 9000 |         JUMP loopa       /If AC>0 then A>100 make user re-input
+005 102E |         LOAD A           /Load A
+006 3034 |         ADD One          /AC=A+1
+007 8800 |         SKIPCOND 800     /If A>0 then skip jump
+008 9000 |         JUMP loopa       /If A<=0 then make user re-input
+009 5000 |  loopb  INPUT            /Take user input for B
+00A 202F |         STORE B          /Store user input for B
+00B 4036 |         SUBT Max         /AC=BA-101
+00C 8000 |         SKIPCOND 000     /If AC<0 then B<100 skip jump
+00D 9009 |         JUMP loopb       /If AC>0 then B>100 make user re-input
+00E 102F |         LOAD B           /Load B
+00F 3034 |         ADD One          /AC=B+1
+010 8800 |         SKIPCOND 800     /If B>0 then skip jump
+011 9009 |         JUMP loopb       /If B<=0 then make user re-input
+012 5000 |  loopc  INPUT            /Take user input for C
+013 2030 |         STORE C          /Store user input for C
+014 4036 |         SUBT Max         /AC=C-101
+015 8000 |         SKIPCOND 000     /If AC<0 then C<100 skip jump
+016 9012 |         JUMP loopc       /If AC>0 then C>100 make user re-input
+017 1030 |         LOAD C           /Load C
+018 3034 |         ADD One          /AC=C+1
+019 8800 |         SKIPCOND 800     /If C>0 then skip jump
+01A 9012 |         JUMP loopc       /If C<=0 then make user re-input
+01B 5000 |  loopd  INPUT            /Take user input for D
+01C 2031 |         STORE D          /Store user input for D
+01D 4036 |         SUBT Max         /AC=D-101
+01E 8000 |         SKIPCOND 000     /If AC<0 then D<100 skip jump
+01F 901B |         JUMP loopd       /If AC>0 then D>100 make user re-input
+020 1031 |         LOAD D           /Load D
+021 3034 |         ADD One          /AC=D+1
+022 8800 |         SKIPCOND 800     /If D>0 then skip jump
+023 901B |         JUMP loopd       /If D<=0 then make user re-input
+024 0037 |         JNS Totsub       /Jump to Subroutine (Triple D)
+025 102E |  tot    LOAD A           /Load A
+026 302F |         ADD B            /Add B
+027 3030 |         ADD C            /Add C
+028 3031 |         ADD D            /Add D
+029 2032 |         STORE Total      /Total=A+B+C+D
+02A 003D |         JNS Divsub       /Jump to Subroutine (Divide by 6)
+02B 1033 |         LOAD Avg         /Load Avg
+02C 6000 |         OUTPUT           /Output average
+         |                          /		Load		Total		/OPTIONAL: Load Total
+         |                          /		Output				/OPTIONAL: Output remainder
+02D 7000 |         HALT             /End program
+         |                          
+02E 0000 |  A      DEC 0            /User value 1
+02F 0000 |  B      DEC 0            /User value 2
+030 0000 |  C      DEC 0            /User value 3
+031 0000 |  D      DEC 0            /User value 4
+032 0000 |  Total  DEC 0            /A+B+C+(3*D)
+033 0000 |  Avg    DEC 0            /Total/6
+034 0001 |  One    DEC 1            /Used in maths & input validation
+035 0006 |  Six    DEC 6            /Used in maths
+036 0065 |  Max    DEC 101          /Used in input validation
+         |                          
+037 0000 |  Totsub HEX 0            /Store return address here
+038 1031 |         LOAD D           /Load D
+039 3031 |         ADD D            /AC=D+D
+03A 3031 |         ADD D            /AC=D+D+D
+03B 2031 |         STORE D          /Store D
+03C C037 |         JUMPI Totsub     /Go to return address
+         |                          
+03D 0001 |  Divsub HEX 1            /Store return address here
+03E 1033 |  div    LOAD Avg         /Load average
+03F 3034 |         ADD One          /Avg=Avg+1
+040 2033 |         STORE Avg        /Store Avg
+041 1032 |         LOAD Total       /Load Total
+042 4035 |         SUBT Six         /Total=Total-6
+043 2032 |         STORE Total      /Store new total
+044 8000 |         SKIPCOND 000     /AC<0: division is finished.
+045 903E |         JUMP div         /AC>0 so try to divide again
+046 3035 |         ADD Six          /AC=Total+6
+047 2032 |         STORE Total      /Store new total (remainder of 1 to 5)
+048 1033 |         LOAD Avg         /Load average
+049 4034 |         SUBT One         /Avg=Avg-1
+04A 2033 |         STORE Avg        /Store new average
+04B C03D |         JUMPI Divsub     /Go to return address
+
+Assembly successful.
+
+         SYMBOL TABLE
+         --------------------------------------------------
+          Symbol | Defined | References 
+         --------+---------+-------------------------------
+          A      |   02E   | 001, 005, 025
+          Avg    |   033   | 02B, 03E, 040, 048, 04A
+          B      |   02F   | 00A, 00E, 026
+          C      |   030   | 013, 017, 027
+          D      |   031   | 01C, 020, 028, 038, 039, 03A, 
+                 |         | 03B
+          Divsub |   03D   | 02A, 04B
+          Max    |   036   | 002, 00B, 014, 01D
+          One    |   034   | 006, 00F, 018, 021, 03F, 049
+          Six    |   035   | 042, 046
+          Total  |   032   | 029, 041, 043, 047
+          Totsub |   037   | 024, 03C
+          div    |   03E   | 045
+          loopa  |   000   | 004, 008
+          loopb  |   009   | 00D, 011
+          loopc  |   012   | 016, 01A
+          loopd  |   01B   | 01F, 023
+          tot    |   025   | 
+         --------------------------------------------------
+
+

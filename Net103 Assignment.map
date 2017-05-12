@@ -1,0 +1,21 @@
+ -----------------
+ Symbol | Location
+ -------+---------
+ A      |   02E
+ Avg    |   033
+ B      |   02F
+ C      |   030
+ D      |   031
+ Divsub |   03D
+ Max    |   036
+ One    |   034
+ Six    |   035
+ Total  |   032
+ Totsub |   037
+ div    |   03E
+ loopa  |   000
+ loopb  |   009
+ loopc  |   012
+ loopd  |   01B
+ tot    |   025
+

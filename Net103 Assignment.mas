@@ -1,0 +1,85 @@
+/NET103 coursework completed by
+/Joseph Kellaway 10503639
+/Zakaria Robinson 10500227
+
+loopa,		Input		A		/Take user input for A
+		Store		A		/Store user input for A
+		Subt		Max		/AC=A-101
+		Skipcond	000		/If AC<0 then A<100 skip jump
+		Jump		loopa		/If AC>0 then A>100 make user re-input
+		Load		A		/Load A
+		Add		One		/AC=A+1
+		Skipcond	800		/If A>0 then skip jump
+		Jump		loopa		/If A<=0 then make user re-input
+loopb,		Input		B		/Take user input for B
+		Store		B		/Store user input for B
+		Subt		Max		/AC=BA-101
+		Skipcond	000		/If AC<0 then B<100 skip jump
+		Jump		loopb		/If AC>0 then B>100 make user re-input
+		Load		B		/Load B
+		Add		One		/AC=B+1
+		Skipcond	800		/If B>0 then skip jump
+		Jump		loopb		/If B<=0 then make user re-input
+loopc,		Input		C		/Take user input for C
+		Store		C		/Store user input for C
+		Subt		Max		/AC=C-101
+		Skipcond	000		/If AC<0 then C<100 skip jump
+		Jump		loopc		/If AC>0 then C>100 make user re-input
+		Load		C		/Load C
+		Add		One		/AC=C+1
+		Skipcond	800		/If C>0 then skip jump
+		Jump		loopc		/If C<=0 then make user re-input
+loopd,		Input		D		/Take user input for D
+		Store		D		/Store user input for D
+		Subt		Max		/AC=D-101
+		Skipcond	000		/If AC<0 then D<100 skip jump
+		Jump		loopd		/If AC>0 then D>100 make user re-input
+		Load		D		/Load D
+		Add		One		/AC=D+1
+		Skipcond	800		/If D>0 then skip jump
+		Jump		loopd		/If D<=0 then make user re-input
+		JNS		Totsub		/Jump to Subroutine (Triple D)
+tot,		Load		A		/Load A
+		Add		B		/Add B
+		Add		C		/Add C
+		Add		D		/Add D
+		Store		Total		/Total=A+B+C+D
+		JNS		Divsub		/Jump to Subroutine (Divide by 6)
+		Load		Avg		/Load Avg
+		Output				/Output average
+/		Load		Total		/OPTIONAL: Load Total
+/		Output				/OPTIONAL: Output remainder
+		Halt				/End program
+
+A,		Dec		0		/User value 1
+B,		Dec		0		/User value 2
+C,		Dec		0		/User value 3
+D,		Dec		0		/User value 4
+Total,		Dec		0		/A+B+C+(3*D)
+Avg,		Dec		0		/Total/6
+One,		Dec		1		/Used in maths & input validation
+Six,		Dec		6		/Used in maths
+Max,		Dec		101		/Used in input validation
+
+Totsub,		Hex		0		/Store return address here
+		Load		D		/Load D
+		Add		D		/AC=D+D
+		Add		D		/AC=D+D+D
+		Store		D		/Store D
+		JumpI		Totsub		/Go to return address
+
+Divsub,		Hex		1		/Store return address here
+div,		Load		Avg		/Load average
+		Add		One		/Avg=Avg+1
+		Store		Avg		/Store Avg
+		Load		Total		/Load Total
+		Subt		Six		/Total=Total-6
+		Store		Total		/Store new total
+		Skipcond	000		/AC<0: division is finished.
+		Jump		div		/AC>0 so try to divide again
+		Add		Six		/AC=Total+6
+		Store		Total		/Store new total (remainder of 1 to 5)
+		Load		Avg		/Load average
+		Subt		One		/Avg=Avg-1
+		Store		Avg		/Store new average
+		JumpI		Divsub		/Go to return address
